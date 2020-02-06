@@ -43,10 +43,15 @@ Importing a RIG:
     - now it can walk and run and jump, though its very gummy right now
     - maybe first shareable game involves this player moving around their world, a mad simple one, doing somehting?
     - TODO: clean, consolodiate & commit code. Tweak and edit values of speed so running animation smooths over.
-         - TODO: bake mesh properly and work out jumping minor bugs
+         - bake mesh properly and work out jumping minor bugs
 
 
 2.6.20
 - modified the speed so walking and running work, added a shift switch between two. looks pretty good
 - baked mesh again after adding obstacles, and the melting into the obstacle issue went away
-- TODO: add the human rig onto the enemy 
+- TODO: add the human rig onto the enemy
+- "too many characters in character literal" --> C# is sensitive to 'single quotes' vs "double quotes"
+- in order to detect end of animation:
+     - got to the project folder at bottom, rig, then animation (e.g. jump)
+      - add an event at the bottom
+      - make sure the graphic itself has an AnimationHelper to catch those events and relay to animator 

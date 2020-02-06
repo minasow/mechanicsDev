@@ -9,30 +9,27 @@ public class PlayerMotor : MonoBehaviour
 
     public Transform playerBody;
     public CharacterController controller;
-    const float locomotionAnimationSmoothTime = .1f;
 
     public float RotateSpeed;
     public float speed;
     public float walkSpeed;
     public float runSpeed;
+    public float jumpHeight = 3f;
 
     public float gravity = -9.81f;
+
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-    public Animator animator;
     public string animationVerb;
 
-    public float jumpHeight = 3f;
     Vector3 velocity;
     bool isGrounded;
-
 
     // Start is called before the first frame update
     void Start()
     {
-      animator = GetComponentInChildren<Animator>();//looks to child object for animatable
       speed = walkSpeed;
       animationVerb = "";
     }
@@ -53,7 +50,6 @@ public class PlayerMotor : MonoBehaviour
       }
 
       if(Input.GetKeyUp("w")){
-        //slowingToHalt = true;
         velocity.x = 0f;
         velocity.z = 0f;
         controller.Move(velocity * Time.deltaTime);
@@ -67,31 +63,26 @@ public class PlayerMotor : MonoBehaviour
         playerBody.transform.Rotate(Vector3.up * RotateSpeed * Time.deltaTime);
       }
 
-
-
       isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-      if(Input.GetButtonDown("Jump") && isGrounded){
-        animationVerb = "Jump";
-        //animator.SetTrigger("Jump");
-      }
+      if(Input.GetButtonDown("Jump") && isGrounded) animationVerb = "Jump";
 
-      if(Input.GetButtonUp("Jump")){
-        velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        animationVerb = "Float";
-        //animator.SetTrigger("Float");
-      }
 
-      if(isGrounded && velocity.y < 0){
+
+      if(isGrounded && velocity.y < 0 && animationVerb != "Jump"){
         velocity.y = -2f; //could be zero, but exprimentally this works better
-        animationVerb = (animationVerb == "Float") ? "beginLand" : "" ;
-
-        //animator.SetTrigger("beginLand");
-        animator.SetTrigger("completeLand");
+        animationVerb = "beginLand";
       } else{
         velocity.y += gravity * Time.deltaTime;
       }
 
       controller.Move(velocity * Time.deltaTime); //because gravity function of deltaG = .5*g*t^2
     }
+
+    public void Jump(){
+      velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+      controller.Move(velocity * Time.deltaTime); //because gravity function of deltaG = .5*g*t^2
+    }
+
+
 }

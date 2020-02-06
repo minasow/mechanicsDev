@@ -25,21 +25,22 @@ public class CharacterAnimator : MonoBehaviour
       animator = GetComponentInChildren<Animator>();//looks to child object for animatable
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-      Debug.Log(motor.animationVerb);
+
+
+    void LateUpdate(){
       if(motor.animationVerb.Length > 0){
         animator.SetTrigger(motor.animationVerb);
         motor.animationVerb = "";
       }
-      //should distinguish between grounded & air state, and use appropriate animation
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         velocity = controller.velocity;
         velocity.y = 0;
         speedPercent = controller.velocity.magnitude / maxSpeed;//currnent speed / max speed
         animator.SetFloat("speedPercent",speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);//0.1f is a smoothing parameter
-
-
     }
 
 
