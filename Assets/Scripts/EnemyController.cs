@@ -12,6 +12,7 @@ public class EnemyController : MonoBehaviour
   bool isEngaged = false;
   bool forwardPacing = true;
   public float speed;
+  public string animationVerb;
   Vector3 startPosition;
   public float pacingDistance = 10f;
   public CharacterController controller;

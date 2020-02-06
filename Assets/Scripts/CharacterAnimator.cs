@@ -7,6 +7,8 @@ public class CharacterAnimator : MonoBehaviour
 {
     public Animator animator;
     public CharacterController controller;
+    public PlayerMotor motor;
+
     const float locomotionAnimationSmoothTime = .1f;
     public float maxSpeed = 10f;
     public float maxJumpHeight = 1.5f;
@@ -18,13 +20,19 @@ public class CharacterAnimator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        controller = GetComponent<CharacterController>();
-        animator = GetComponentInChildren<Animator>();//looks to child object for animatable
+      motor = gameObject.GetComponent<PlayerMotor>();
+      controller = GetComponent<CharacterController>();
+      animator = GetComponentInChildren<Animator>();//looks to child object for animatable
     }
 
     // Update is called once per frame
     void Update()
     {
+      Debug.Log(motor.animationVerb);
+      if(motor.animationVerb.Length > 0){
+        animator.SetTrigger(motor.animationVerb);
+        motor.animationVerb = "";
+      }
       //should distinguish between grounded & air state, and use appropriate animation
         velocity = controller.velocity;
         velocity.y = 0;

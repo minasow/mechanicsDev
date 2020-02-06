@@ -20,18 +20,21 @@ public class PlayerMotor : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-    Animation jumpAnim;
-    public Animator animator;
-    public float jumpHeight = 3f;
 
+    public Animator animator;
+    public string animationVerb;
+
+    public float jumpHeight = 3f;
     Vector3 velocity;
     bool isGrounded;
+
 
     // Start is called before the first frame update
     void Start()
     {
       animator = GetComponentInChildren<Animator>();//looks to child object for animatable
       speed = walkSpeed;
+      animationVerb = "";
     }
 
     // Update is called once per frame
@@ -64,20 +67,26 @@ public class PlayerMotor : MonoBehaviour
         playerBody.transform.Rotate(Vector3.up * RotateSpeed * Time.deltaTime);
       }
 
+
+
+      isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
       if(Input.GetButtonDown("Jump") && isGrounded){
-        animator.SetTrigger("Jump");
+        animationVerb = "Jump";
+        //animator.SetTrigger("Jump");
       }
 
       if(Input.GetButtonUp("Jump")){
         velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        animator.SetTrigger("Float");
+        animationVerb = "Float";
+        //animator.SetTrigger("Float");
       }
-
-      isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
       if(isGrounded && velocity.y < 0){
         velocity.y = -2f; //could be zero, but exprimentally this works better
-        animator.SetTrigger("beginLand");
+        animationVerb = (animationVerb == "Float") ? "beginLand" : "" ;
+
+        //animator.SetTrigger("beginLand");
         animator.SetTrigger("completeLand");
       } else{
         velocity.y += gravity * Time.deltaTime;
