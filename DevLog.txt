@@ -1,0 +1,52 @@
+1/31/19:
+- Got the player graphic in the environment.
+But the NavMeshAgent isn't jumping with the rest of the player, not sure if thats intentional.
+The animations only work when the NavMeshAgent is intersecting with something, which is only
+happening when it intersects with the enemy?
+- got rid of the navmeshagent. that fixed the sticking issue. but now its an issue of velocity
+it only sees the y velocity change when moving, so it starts to animate when you jump but thats it.
+- AHA!
+   - getting rid of navmeshagent fixed issue with jump
+   - playermotor had to edit its own velocity.x parameters
+- new goal: have the awsd buttons modify velocity in a pleasing way
+
+
+2.3.20:
+- trying to add the jump animation. sorta had it working with an extra animation GetComponent
+but trying to add it through the animationcontroller. having the same issue where right falls through t
+the floor. Because didn't have avatar --> had to put the Rig type of the prefab back to Humanoid (it'd
+been LEgacy to use the simple animation controller)
+- got that to fix falling issue. currently walking fine, but getting the animation controller to
+jump is tricky. after that we should have all basic motions set and can work on tuning in Unity, and
+setting up more polished Blends
+- Figured it out:
+    - its not a transition, but a trigger.
+      https://www.studica.com/blog/unity-tutorial-animator-controllers
+      - drag animation right into animator, add transitiona rrows, and add trigger (same place as parameters)
+      - then animator.SetTrigger("jump")
+- Now the tuning needs to happen, but it can run and jump!!
+
+Importing a RIG:
+- remove Camera in Blender
+- export in fbx
+- click on prefab once imported into Characters folder
+- Rig > Humanoid Apply
+- Motion > Root Motion
+- link to animator
+     - import new actions if necessary
+     - wire up character animator
+
+
+2.4.20
+- broke up the jump anim into a jump, float, land animations and added each with triggers
+    - theres a lag in transitions, so need to uncheck 'exit time' in the transition menu.
+    - now it can walk and run and jump, though its very gummy right now
+    - maybe first shareable game involves this player moving around their world, a mad simple one, doing somehting?
+    - TODO: clean, consolodiate & commit code. Tweak and edit values of speed so running animation smooths over.
+         - TODO: bake mesh properly and work out jumping minor bugs
+
+
+2.6.20
+- modified the speed so walking and running work, added a shift switch between two. looks pretty good
+- baked mesh again after adding obstacles, and the melting into the obstacle issue went away
+- TODO: add the human rig onto the enemy 
