@@ -21,6 +21,7 @@ public class AnimationHelper : MonoBehaviour
     }
 
     void floatComplete(){
+      Debug.Log("float complete");
     }
 
     void landComplete(){

@@ -13,7 +13,6 @@ public class CharacterAnimator : MonoBehaviour
     public float maxSpeed = 10f;
     public float maxJumpHeight = 1.5f;
     float speedPercent;
-    float heightPercent;
     Vector3 velocity;
     Vector3 height;
 

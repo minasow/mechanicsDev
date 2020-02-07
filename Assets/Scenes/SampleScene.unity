@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.4465785, g: 0.49641252, b: 0.574817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -872,6 +872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookRadius: 10
   speed: 5
+  animationVerb: 
   pacingDistance: 10
   controller: {fileID: 615970855}
 --- !u!143 &615970855
@@ -1207,6 +1208,26 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1306873981}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1388336188 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 05a42ccd37f2bb5e791b97c15a133b98,
+    type: 3}
+  m_PrefabInstance: {fileID: 234907342}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1388336190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1388336188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd39780be046bea558fa0cbbc5381fcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  charAnimator: {fileID: 0}
+  motor: {fileID: 0}
 --- !u!1 &1621575205
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,14 +1336,14 @@ MonoBehaviour:
   speed: 3
   walkSpeed: 3
   runSpeed: 5
+  jumpHeight: 3
   gravity: -40
   groundCheck: {fileID: 2006684489}
   groundDistance: 0.2
   groundMask:
     serializedVersion: 2
     m_Bits: 256
-  animator: {fileID: 0}
-  jumpHeight: 3
+  animationVerb: 
 --- !u!114 &1655013886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1367,6 +1388,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
   controller: {fileID: 1655013887}
+  motor: {fileID: 0}
   maxSpeed: 4.5
   maxJumpHeight: 1.5
 --- !u!4 &1813325120 stripped

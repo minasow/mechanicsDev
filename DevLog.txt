@@ -1,4 +1,4 @@
-1/31/19:
+1.31.19:
 - Got the player graphic in the environment.
 But the NavMeshAgent isn't jumping with the rest of the player, not sure if thats intentional.
 The animations only work when the NavMeshAgent is intersecting with something, which is only
@@ -42,16 +42,22 @@ Importing a RIG:
     - theres a lag in transitions, so need to uncheck 'exit time' in the transition menu.
     - now it can walk and run and jump, though its very gummy right now
     - maybe first shareable game involves this player moving around their world, a mad simple one, doing somehting?
-    - TODO: clean, consolodiate & commit code. Tweak and edit values of speed so running animation smooths over.
+    - clean, consolodiate & commit code. Tweak and edit values of speed so running animation smooths over.
          - bake mesh properly and work out jumping minor bugs
 
 
 2.6.20
 - modified the speed so walking and running work, added a shift switch between two. looks pretty good
 - baked mesh again after adding obstacles, and the melting into the obstacle issue went away
-- TODO: add the human rig onto the enemy
 - "too many characters in character literal" --> C# is sensitive to 'single quotes' vs "double quotes"
 - in order to detect end of animation:
      - got to the project folder at bottom, rig, then animation (e.g. jump)
       - add an event at the bottom
-      - make sure the graphic itself has an AnimationHelper to catch those events and relay to animator 
+      - make sure the graphic itself has an AnimationHelper to catch those events and relay to animator
+
+- TODO: something about changing the namebefore I had saved broke something.
+- TODO: add the human rig onto the enemy
+
+
+2.7.20:
+- issue that i deleted had to do with the transition from landing to locomotion withint he animator. fixed
