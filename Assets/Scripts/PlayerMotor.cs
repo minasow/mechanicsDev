@@ -9,7 +9,6 @@ public class PlayerMotor : MonoBehaviour
 
     public Transform playerBody;
     public CharacterController controller;
-    public CharacterAnimator charAnimator;
     const float locomotionAnimationSmoothTime = .1f;
 
     public float RotateSpeed;
@@ -22,7 +21,6 @@ public class PlayerMotor : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
-    public Animator animator;
     public string animationVerb;
 
     public float jumpHeight = 3f;
@@ -37,8 +35,6 @@ public class PlayerMotor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      charAnimator = gameObject.GetComponent<CharacterAnimator>();
-      animator = GetComponentInChildren<Animator>();//looks to child object for animatable
       speed = walkSpeed;
       animationVerb = "";
     }
@@ -83,20 +79,14 @@ public class PlayerMotor : MonoBehaviour
       //}
 
       if(Input.GetButtonDown("Jump") && isGrounded){
-        //animator.SetTrigger("Jump");
-        Debug.Log("jump registered in motor");
         animationVerb = "Jump";
       }
 
 
       if(isGrounded && velocity.y < 0 && animationVerb != "Jump"){
-        Debug.Log("motor knows youve landed");
-        Debug.Log(animationVerb);
         velocity.y = -2f; //could be zero, but exprimentally this works better
         animationVerb = "beginLand";
 
-        //animator.SetTrigger("beginLand");
-        //animator.SetTrigger("completeLand");
       } else{
         velocity.y += gravity * Time.deltaTime;
       }

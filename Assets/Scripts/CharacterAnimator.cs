@@ -7,19 +7,26 @@ public class CharacterAnimator : MonoBehaviour
 {
     public Animator animator;
     public CharacterController controller;
-    public PlayerMotor motor;
+    public PlayerMotor playerMotor;
+    public EnemyController enemyMotor;
+
 
     const float locomotionAnimationSmoothTime = .1f;
-    public float maxSpeed = 10f;
+    public float maxSpeed = 4.5f;
     public float maxJumpHeight = 1.5f;
     float speedPercent;
     Vector3 velocity;
     Vector3 height;
+    bool isEnemy;
 
     // Start is called before the first frame update
     void Start()
     {
-      motor = gameObject.GetComponent<PlayerMotor>();
+      playerMotor = gameObject.GetComponent<PlayerMotor>();
+      if(playerMotor == null){
+        isEnemy = true;
+        enemyMotor = gameObject.GetComponent<EnemyController>();
+      }
       controller = GetComponent<CharacterController>();
       animator = GetComponentInChildren<Animator>();//looks to child object for animatable
     }
@@ -27,9 +34,9 @@ public class CharacterAnimator : MonoBehaviour
 
 
     void LateUpdate(){
-      if(motor.animationVerb.Length > 0){
-        animator.SetTrigger(motor.animationVerb);
-        motor.animationVerb = "";
+      if((!isEnemy) && (playerMotor.animationVerb.Length > 0)){
+          animator.SetTrigger(playerMotor.animationVerb);
+          playerMotor.animationVerb = "";
       }
     }
 

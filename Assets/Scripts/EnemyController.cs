@@ -15,14 +15,16 @@ public class EnemyController : MonoBehaviour
   public string animationVerb;
   Vector3 startPosition;
   public float pacingDistance = 10f;
+  public float stoppingDistance = 10f;
   public CharacterController controller;
+  Vector3 velocity;
 
     // Start is called before the first frame update
     void Start()
     {
       startPosition = transform.position;
       target = PlayerManager.instance.player.transform;
-      agent = GetComponent<NavMeshAgent>();
+      //agent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -34,23 +36,24 @@ public class EnemyController : MonoBehaviour
 
       float distance = Vector3.Distance(target.position, transform.position);
 
-      if(distance <= lookRadius){
+      /*if(distance <= lookRadius){
         isEngaged = true;
         //then start interacting with PlayerManager
-        agent.SetDestination(target.position);
-        if(distance <= agent.stoppingDistance){
+        //agent.SetDestination(target.position);
+        if(distance <= stoppingDistance){
           //interact with target
           //face target
           FaceTarget();
         }
-      }
+      }*/
 
     }
 
     void Pace(){
       if(forwardPacing){
-        Vector3 move = transform.right;
-        controller.Move(move* speed * Time.deltaTime);
+        Vector3 move = transform.right*speed;
+        velocity = move;
+        controller.Move(move * Time.deltaTime);
       }
 
       float relativeDistance = Vector3.Distance(startPosition, transform.position);

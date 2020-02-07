@@ -55,9 +55,16 @@ Importing a RIG:
       - add an event at the bottom
       - make sure the graphic itself has an AnimationHelper to catch those events and relay to animator
 
-- TODO: something about changing the namebefore I had saved broke something.
+- something about changing the namebefore I had saved broke something.
 - TODO: add the human rig onto the enemy
 
 
 2.7.20:
 - issue that i deleted had to do with the transition from landing to locomotion withint he animator. fixed
+- when linking up the enemy with the rig:
+    - didn't move at first, had to make the animator script robust
+    - stll didn't move, had to manually set the animation controller on the GFX game object to point to the V2animator
+- TODO: fine-tune the collider/controller settings:
+       - how do you get them to cleanly walk on the ground 
+       - make the player's interaction with objects tighter and less glitchy
+- TODO: make it a game! Enemy is a humanoid rig now, pacing to protect something?
