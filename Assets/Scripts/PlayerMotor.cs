@@ -55,7 +55,6 @@ public class PlayerMotor : MonoBehaviour
       }
 
       if(Input.GetKeyUp("w")){
-        //slowingToHalt = true;
         velocity.x = 0f;
         velocity.z = 0f;
         controller.Move(velocity * Time.deltaTime);
@@ -69,30 +68,20 @@ public class PlayerMotor : MonoBehaviour
         playerBody.transform.Rotate(Vector3.up * RotateSpeed * Time.deltaTime);
       }
 
-
-
       isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
-
-      //if(Input.GetButton("Jump")){
-      //  animationVerb = "Jump";
-
-      //}
 
       if(Input.GetButtonDown("Jump") && isGrounded){
         animationVerb = "Jump";
       }
 
-
       if(isGrounded && velocity.y < 0 && animationVerb != "Jump"){
         velocity.y = -2f; //could be zero, but exprimentally this works better
         animationVerb = "beginLand";
-
       } else{
         velocity.y += gravity * Time.deltaTime;
       }
 
       controller.Move(velocity * Time.deltaTime); //because gravity function of deltaG = .5*g*t^2
     }
-
 
 }

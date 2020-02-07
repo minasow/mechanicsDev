@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class AnimationHelper : MonoBehaviour
 {
-  public CharacterAnimator charAnimator;
   public PlayerMotor motor;
 
     // Start is called before the first frame update
     void Start()
     {
-      charAnimator = gameObject.GetComponentInParent<CharacterAnimator>();
       motor = gameObject.GetComponentInParent<PlayerMotor>();
-
     }
 
     void JumpComplete(){
@@ -23,6 +20,7 @@ public class AnimationHelper : MonoBehaviour
     void floatComplete(){
     }
 
+    //not sure this is necessary
     void landComplete(){
       motor.animationVerb = "";
     }

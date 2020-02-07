@@ -7,17 +7,22 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour
 {
   public float lookRadius = 10f;
+  public float caughtRadius = 1f;
+  public float RotateSpeed = 100f;
+
   Transform target;
   NavMeshAgent agent;
   bool isEngaged = false;
+  bool caught = false;
   bool forwardPacing = true;
   public float speed;
   public string animationVerb;
   Vector3 startPosition;
   public float pacingDistance = 10f;
-  public float stoppingDistance = 10f;
   public CharacterController controller;
   Vector3 velocity;
+  Vector3 direction;
+  float distance;
 
     // Start is called before the first frame update
     void Start()
@@ -34,9 +39,17 @@ public class EnemyController : MonoBehaviour
         Pace();
       }
 
-      float distance = Vector3.Distance(target.position, transform.position);
+      distance = Vector3.Distance(target.position, transform.position);
 
-      /*if(distance <= lookRadius){
+      isEngaged = isEngaged ? true : distance <= lookRadius; //should only be able to engage, not disengage
+      caught = distance <= caughtRadius;
+      if(caught){
+        Debug.Log("YOU LOSE");
+      } else if(isEngaged){
+        isEngaged = true;
+        FaceTarget();
+        RushTarget();
+        /*
         isEngaged = true;
         //then start interacting with PlayerManager
         //agent.SetDestination(target.position);
@@ -44,8 +57,25 @@ public class EnemyController : MonoBehaviour
           //interact with target
           //face target
           FaceTarget();
-        }
-      }*/
+        }*/
+      }
+
+    }
+
+    void RushTarget(){
+      //TODO: how to chase the player
+    }
+
+    void FaceTarget(){
+      Debug.Log("DETECTED");
+      direction = (target.position - transform.position).normalized;
+
+      Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+      transform.rotation = Quaternion.Slerp(transform.rotation,lookRotation, Time.deltaTime);
+
+      velocity.x = 0f;
+      velocity.z = 0f;
+      controller.Move(velocity * Time.deltaTime);
 
     }
 
@@ -57,18 +87,13 @@ public class EnemyController : MonoBehaviour
       }
 
       float relativeDistance = Vector3.Distance(startPosition, transform.position);
-      if(relativeDistance >= pacingDistance){ //then turn around
+      if((!isEngaged) && (relativeDistance >= pacingDistance)){ //then turn around
         transform.rotation = Quaternion.LookRotation(-transform.forward, Vector3.up);
       }
 
 
     }
 
-    void FaceTarget(){
-      Vector3 direction = (target.position - transform.position).normalized;
-      Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
-      transform.rotation = Quaternion.Slerp(transform.rotation,lookRotation, Time.deltaTime*5f);
-    }
 
     void OnDrawGizmosSelected(){
       Gizmos.color = Color.red;
